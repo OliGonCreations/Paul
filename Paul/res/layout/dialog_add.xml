@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/etSpruch"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:inputType="text"
+        android:maxLength="20"
+        android:singleLine="true"
+        android:hint="@string/dialogspruch">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/etLand"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+ 		android:layout_margin="10dp"
+        android:hint="@string/dialogland"
+        android:inputType="text"
+        android:ems="10"
+        android:maxLength="20"
+        android:singleLine="true" >
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/bt_cancel"
+            style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bt_Abbrechen" />
+
+        <Button
+            android:id="@+id/bt_ok"
+            style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/ok" />
+    </LinearLayout>
+
+</LinearLayout>

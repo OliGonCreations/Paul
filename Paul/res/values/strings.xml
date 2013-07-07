@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Paul</string>
+    <string name="action_settings">Spruch hinzufügen</string>
+    <string name="action_filter">Sprüche filtern</string>
+    <string name="dialogspruch">Spruch</string>
+    <string name="dialogland">Land</string>
+    <string name="dialog_add">Spruch hinzufügen</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="button">Trinkspruch!</string>
+    <string name="trinkspruch"></string>
+    <string name="paul">Hey Paul kennst du einen Trinkspruch?</string>
+	<string name="bt_Abbrechen">Abbrechen</string>
+</resources>
