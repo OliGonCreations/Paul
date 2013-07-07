@@ -1,13 +1,5 @@
 package com.oligon.paul;
 
-//import java.io.ByteArrayOutputStream;
-//import java.io.IOException;
-//import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
-
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.res.Resources;
@@ -24,6 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Random;
 
 public class MainActivity extends Activity {
 	Shaker mShaker;
@@ -83,13 +80,11 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		mShaker = new Shaker(this, 1.5d, 0, new Shaker.Callback() {
 
 			@Override
 			public void shakingStopped() {
-				// TODO Auto-generated method stub
 					if (sound != 0) {
 						countSound.play(sound, 1, 1, 0, 0, 1);
 					}
@@ -111,15 +106,12 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void shakingStarted() {
-				// TODO Auto-generated method stub
-
 			}
 		});
 	}
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		mShaker.close();
 
@@ -134,7 +126,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.action_settings:
 			DialogAdd add = new DialogAdd();
@@ -159,7 +150,6 @@ public class MainActivity extends Activity {
 			}
 			streamland.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -178,7 +168,6 @@ public class MainActivity extends Activity {
 			}
 			spruch.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -211,7 +200,6 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
-			// TODO Auto-generated method stub
 			super.onActivityCreated(savedInstanceState);
 
 			etSpruch = (EditText) getView().findViewById(R.id.etSpruch);
