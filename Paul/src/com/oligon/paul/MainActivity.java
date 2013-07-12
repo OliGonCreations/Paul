@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		getActionBar().setIcon(R.drawable.innericon);
+		getActionBar().setIcon(R.drawable.innericon);   //Icon in der Actionbar
 		res = getResources();
 		Log.d("Database", "creating Database");
 
@@ -212,11 +212,16 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					Log.d("Database", "creating Database");
+                    if(etSpruch.getText().toString().equals("")||etLand.getText().toString().equals("")){
+                        getDialog().dismiss();
+                    }else{
 					db.addSpruch(new Spruch(etSpruch.getText().toString(),
 							etLand.getText().toString()));
 					Toast.makeText(getActivity(), "Spruch gespeichert",
 							Toast.LENGTH_SHORT).show();
+
 					getDialog().dismiss();
+                    }
 				}
 			});
 			bt_Abbrechen.setOnClickListener(new View.OnClickListener() {

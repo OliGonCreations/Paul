@@ -54,7 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 
-	// Spruch hinzufügen
+	// Spruch hinzufÃ¼gen
 	public void addSpruch(Spruch spruch) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -84,7 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return spruch;
 	}
 
-	// Alle Sprüche zurück bekommen
+	// Alle SprÃ¼che zurÃ¼ck bekommen
 	public List<Spruch> getAllContacts() {
 		List<Spruch> spruchListe = new ArrayList<Spruch>();
 		String selectQuery = "SELECT * FROM " + TABLE_INHALT;
@@ -104,7 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return spruchListe;
 	}
 
-	// Anzahl der Sprüche
+	// Anzahl der SprÃ¼che
 	public int getSpruchCount() {
 
 		String countQuery = "SELECT * FROM " + TABLE_INHALT;

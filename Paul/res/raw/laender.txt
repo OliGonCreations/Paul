@@ -1,4 +1,55 @@
-Deutschland
-Schweiz
-Australien
-China
+Deutsch
+Schweizerisch
+Australisch
+Albanisch
+Arabisch
+Armenisch
+Baluchi (Iran)
+Baskisch
+Bretonisch
+Bulgarisch
+Chinesisch
+Chinesisch
+Dänisch
+Englisch
+Estnisch
+Finnisch
+Französisch
+Georgisch
+Griechisch
+Grönländisch
+Hawaianisch
+Hebräisch
+Hindi (Indien)
+Holländisch
+Holländisch
+Indonesisch
+Gälisch (Irland, Schottland)
+Isländisch
+Italienisch
+Japanisch
+Jiddisch
+Katalanisch
+Lettisch:
+Libanesisch
+Littauisch
+Maltesisch
+Nigerianisch
+Norwegisch
+Persisch
+Polnisch
+Portugiesisch
+Rätoromanisch
+Rumänisch
+Russisch
+Schwedisch
+Serbokroatisch
+Somalisch
+Spanisch
+Tagalog (Philippinen)
+Thailändisch
+Tschechisch
+Türkisch
+Ungarisch
+Urdu (Pakistan)
+Walisisch
