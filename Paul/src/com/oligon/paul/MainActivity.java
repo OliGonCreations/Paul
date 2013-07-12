@@ -214,6 +214,8 @@ public class MainActivity extends Activity {
 					Log.d("Database", "creating Database");
                     if(etSpruch.getText().toString().equals("")||etLand.getText().toString().equals("")){
                         getDialog().dismiss();
+                        Toast.makeText(getActivity(), "Leerer Spruch!",
+                                Toast.LENGTH_SHORT).show();
                     }else{
 					db.addSpruch(new Spruch(etSpruch.getText().toString(),
 							etLand.getText().toString()));
