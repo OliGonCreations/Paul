@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
 			DialogAdd add = new DialogAdd();
 			add.show(getFragmentManager(), "add");
 			break;
-		case R.id.action_filter:
+		//case R.id.action_filter:
 		}
 		return super.onOptionsItemSelected(item);
 	}
