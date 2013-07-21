@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,218 +25,256 @@ import java.io.InputStream;
 import java.util.Random;
 
 public class MainActivity extends Activity {
-	Shaker mShaker;
-	Button bt1;
-	TextView trinkspruch;
-	TextView land;
-	SoundPool countSound;
-	int sound;
-	int min = 1;
-	int max;
-	public static DatabaseHandler db;
-	static Resources res;
+    Shaker mShaker;
+    Button bt1;
+    TextView trinkspruch;
+    TextView land;
+    SoundPool countSound;
+    int sound;
+    int min = 1;
+    int max;
+    public static DatabaseHandler db;
+    static Resources res;
+    public static String[] autoCompArray;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		getActionBar().setIcon(R.drawable.innericon);   //Icon in der Actionbar
-		res = getResources();
-		Log.d("Database", "creating Database");
 
-		db = new DatabaseHandler(this);
-		Log.d("Inserting", "insterting");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        getActionBar().setIcon(R.drawable.innericon);   //Icon in der Actionbar
+        res = getResources();
+        Log.d("Database", "creating Database");
+        db = new DatabaseHandler(this);
+        Log.d("Inserting", "insterting");
+        Log.d("Var", "" + max);
 
-		Log.d("Var", "" + max);
 
-		countSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
-		sound = countSound.load(this, R.raw.paulsound, 1);
-		// content = loadArray();
-		bt1 = (Button) findViewById(R.id.button1);
-		trinkspruch = (TextView) findViewById(R.id.trinkspruch1);
-		land = (TextView) findViewById(R.id.land1);
-		bt1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (sound != 0) {
-					countSound.play(sound, 1, 1, 0, 0, 1);
-				}
-				max = db.getSpruchCount();
-				if (max != 0) {
+        countSound = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+        sound = countSound.load(this, R.raw.paulsound, 1);
 
-					int res;
-					Random r = new Random();
-					res = min + r.nextInt(max);
+        bt1 = (Button) findViewById(R.id.button1);
+        trinkspruch = (TextView) findViewById(R.id.trinkspruch1);
+        land = (TextView) findViewById(R.id.land1);
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sound != 0) {
+                    countSound.play(sound, 1, 1, 0, 0, 1);
+                }
+                max = db.getSpruchCount();
+                if (max != 0) {
 
-					Log.d("random", "" + res);
+                    int res;
+                    Random r = new Random();
+                    res = min + r.nextInt(max);
 
-					// trinkspruch.setText("" + array[res][0]);
-					trinkspruch.setText("" + db.getSpruch(res)._spruch);
-					land.setText("" + db.getSpruch(res)._land);
-				}
-			}
+                    Log.d("random", "" + res);
 
-		});
+                    // trinkspruch.setText("" + array[res][0]);
+                    trinkspruch.setText("" + db.getSpruch(res)._spruch);
+                    land.setText("" + db.getSpruch(res)._land);
+                }
+            }
 
-	}
+        });
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		mShaker = new Shaker(this, 1.5d, 0, new Shaker.Callback() {
+    }
 
-			@Override
-			public void shakingStopped() {
-					if (sound != 0) {
-						countSound.play(sound, 1, 1, 0, 0, 1);
-					}
-					max = db.getSpruchCount();
-					if (max != 0) {
-						int res;
-						Random r = new Random();
-						res = min + r.nextInt(max);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mShaker = new Shaker(this, 1.5d, 0, new Shaker.Callback() {
 
-						Log.d("random", "" + res);
+            @Override
+            public void shakingStopped() {
+                if (sound != 0) {
+                    countSound.play(sound, 1, 1, 0, 0, 1);
+                }
+                max = db.getSpruchCount();
+                if (max != 0) {
+                    int res;
+                    Random r = new Random();
+                    res = min + r.nextInt(max);
 
-						// trinkspruch.setText("" + array[res][0]);
-						trinkspruch.setText("" + db.getSpruch(res)._spruch);
-						land.setText("" + db.getSpruch(res)._land);
-					}
-				
+                    Log.d("random", "" + res);
 
-			}
+                    // trinkspruch.setText("" + array[res][0]);
+                    trinkspruch.setText("" + db.getSpruch(res)._spruch);
+                    land.setText("" + db.getSpruch(res)._land);
+                }
 
-			@Override
-			public void shakingStarted() {
-			}
-		});
-	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		mShaker.close();
+            }
 
-	}
+            @Override
+            public void shakingStarted() {
+            }
+        });
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mShaker.close();
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			DialogAdd add = new DialogAdd();
-			add.show(getFragmentManager(), "add");
-			break;
-		//case R.id.action_filter:
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    }
 
-	public static String[][] loadArray() {
-		InputStream streamland = res.openRawResource(R.raw.laender);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-		ByteArrayOutputStream lnd = new ByteArrayOutputStream();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                DialogAdd add = new DialogAdd();
+                add.show(getFragmentManager(), "add");
+                break;
+            //case R.id.action_filter:
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-		int i;
-		try {
-			i = streamland.read();
-			while (i != -1) {
-				lnd.write(i);
-				i = streamland.read();
-			}
-			streamland.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    public static String[][] loadArray() {
+        InputStream streamland = res.openRawResource(R.raw.laender);
 
-		String res1 = lnd.toString();
-		String[] splittedlnd = res1.split("\n");
+        ByteArrayOutputStream lnd = new ByteArrayOutputStream();
 
-		InputStream spruch = res.openRawResource(R.raw.sprueche);
-		ByteArrayOutputStream spr = new ByteArrayOutputStream();
+        int i;
+        try {
+            i = streamland.read();
+            while (i != -1) {
+                lnd.write(i);
+                i = streamland.read();
+            }
+            streamland.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		int j;
-		try {
-			j = spruch.read();
-			while (j != -1) {
-				spr.write(j);
-				j = spruch.read();
-			}
-			spruch.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        String res1 = lnd.toString();
+        String[] splittedlnd = res1.split("\n");
 
-		String spr1 = spr.toString();
-		String[] splittedspr = spr1.split("\n");
+        InputStream spruch = res.openRawResource(R.raw.sprueche);
+        ByteArrayOutputStream spr = new ByteArrayOutputStream();
 
-		String[][] data = new String[splittedspr.length][2];
+        int j;
+        try {
+            j = spruch.read();
+            while (j != -1) {
+                spr.write(j);
+                j = spruch.read();
+            }
+            spruch.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		for (int k = 0; k < data.length; k++) {
-			data[k][0] = splittedspr[k];
-			data[k][1] = splittedlnd[k];
-		}
+        String spr1 = spr.toString();
+        String[] splittedspr = spr1.split("\n");
 
-		return data;
-	}
+        String[][] data = new String[splittedspr.length][2];
 
-	public static class DialogAdd extends DialogFragment {
+        for (int k = 0; k < data.length; k++) {
+            data[k][0] = splittedspr[k];
+            data[k][1] = splittedlnd[k];
+        }
 
-		EditText etLand, etSpruch;
-		Button bt_ok, bt_Abbrechen;
+        return data;
+    }
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			getDialog().setTitle(getResources().getString(R.string.dialog_add));
-			getDialog().setCanceledOnTouchOutside(false);
+    public static String[] loadAutoCompArray() { //befüllt ein array mit den Ländern, die für das Autocomplete verwendet werden
+        InputStream autoCompStream = res.openRawResource(R.raw.autocomp);
 
-			return inflater.inflate(R.layout.dialog_add, container, false);
-		}
+        ByteArrayOutputStream lnd = new ByteArrayOutputStream();
 
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
+        int i;
+        try {
+            i = autoCompStream.read();
+            while (i != -1) {
+                lnd.write(i);
+                i = autoCompStream.read();
+            }
+            autoCompStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-			etSpruch = (EditText) getView().findViewById(R.id.etSpruch);
-			etLand = (EditText) getView().findViewById(R.id.etLand);
+        String res1 = lnd.toString();
+        String[] splittedAutoComp = res1.split("\n");
 
-			bt_ok = (Button) getView().findViewById(R.id.bt_ok);
-			bt_Abbrechen = (Button) getView().findViewById(R.id.bt_cancel);
-			bt_ok.setOnClickListener(new View.OnClickListener() {
+        return splittedAutoComp;
+    }
 
-				@Override
-				public void onClick(View v) {
-					Log.d("Database", "creating Database");
-                    if(etSpruch.getText().toString().equals("")||etLand.getText().toString().equals("")){
+    public static class DialogAdd extends DialogFragment {
+
+        String item[] = {
+                "January", "February", "March", "April",
+                "May", "June", "July", "August",
+                "September", "October", "November", "December"
+        };
+        AutoCompleteTextView actvLand;
+        EditText etSpruch;
+        Button bt_ok, bt_Abbrechen;
+
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            getDialog().setTitle(getResources().getString(R.string.dialog_add));
+            getDialog().setCanceledOnTouchOutside(false);
+
+            return inflater.inflate(R.layout.dialog_add, container, false);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+            //erstellen eines Adapters für das Autocomplete
+
+            autoCompArray = loadAutoCompArray();
+
+
+            etSpruch = (EditText) getView().findViewById(R.id.etSpruch);
+            actvLand = (AutoCompleteTextView) getView().findViewById(R.id.actwLand);
+            actvLand.setThreshold(1);
+            actvLand.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, item));
+
+            bt_ok = (Button) getView().findViewById(R.id.bt_ok);
+            bt_Abbrechen = (Button) getView().findViewById(R.id.bt_cancel);
+            bt_ok.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Log.d("Database", "creating Database");
+                    if (etSpruch.getText().toString().equals("") || actvLand.getText().toString().equals("")) {
                         getDialog().dismiss();
                         Toast.makeText(getActivity(), "Leerer Spruch!",
                                 Toast.LENGTH_SHORT).show();
-                    }else{
-					db.addSpruch(new Spruch(etSpruch.getText().toString(),
-							etLand.getText().toString()));
-					Toast.makeText(getActivity(), "Spruch gespeichert",
-							Toast.LENGTH_SHORT).show();
+                    } else {
+                        db.addSpruch(new Spruch(etSpruch.getText().toString(),
+                                actvLand.getText().toString()));
+                        Toast.makeText(getActivity(), "Spruch gespeichert",
+                                Toast.LENGTH_SHORT).show();
 
-					getDialog().dismiss();
+                        getDialog().dismiss();
                     }
-				}
-			});
-			bt_Abbrechen.setOnClickListener(new View.OnClickListener() {
+                }
+            });
+            bt_Abbrechen.setOnClickListener(new View.OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					getDialog().dismiss();
-				}
-			});
-		}
+                @Override
+                public void onClick(View v) {
+                    getDialog().dismiss();
+                }
+            });
+        }
 
-	}
+    }
 
 }
