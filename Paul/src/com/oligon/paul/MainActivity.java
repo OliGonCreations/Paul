@@ -235,7 +235,7 @@ public class MainActivity extends Activity {
             actvLand = (AutoCompleteTextView) view.findViewById(R.id.actwLand);
             actvLand.setThreshold(1);
             //Bei Fragments immer 'this' in Constructoren zu 'getActivity()' ändern!!
-            actvLand.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, autoCompArray));
+            actvLand.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.item_list, autoCompArray));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setView(view)
