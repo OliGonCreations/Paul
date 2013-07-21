@@ -1,7 +1,10 @@
 package com.oligon.paul;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -11,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -219,18 +221,56 @@ public class MainActivity extends Activity {
         };
         AutoCompleteTextView actvLand;
         EditText etSpruch;
-        Button bt_ok, bt_Abbrechen;
+        //Button bt_ok, bt_Abbrechen;
 
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Custom Dialog-Layout
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view = inflater.inflate(R.layout.dialog_add, null);
+
+            autoCompArray = loadAutoCompArray();
+            etSpruch = (EditText) view.findViewById(R.id.etSpruch);
+            actvLand = (AutoCompleteTextView) view.findViewById(R.id.actwLand);
+            actvLand.setThreshold(1);
+            //Bei Fragments immer 'this' in Constructoren zu 'getActivity()' ändern!!
+            actvLand.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, autoCompArray));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setView(view)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Log.d("Database", "creating Database");
+                            if (etSpruch.getText().toString().equals("") || actvLand.getText().toString().equals("")) {
+                                Toast.makeText(getActivity(), "Leerer Spruch!",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                db.addSpruch(new Spruch(etSpruch.getText().toString(),
+                                        actvLand.getText().toString()));
+                                Toast.makeText(getActivity(), "Spruch gespeichert",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            getDialog().dismiss();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            getDialog().dismiss();
+                        }
+                    });
+
+            return builder.create();
+            /*
             getDialog().setTitle(getResources().getString(R.string.dialog_add));
             getDialog().setCanceledOnTouchOutside(false);
 
-            return inflater.inflate(R.layout.dialog_add, container, false);
+            return inflater.inflate(R.layout.dialog_add, container, false);*/
         }
 
+
+        // Wird nicht mehr benötigt!
+            /*
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
@@ -245,6 +285,7 @@ public class MainActivity extends Activity {
             actvLand.setThreshold(1);
             //Bei Fragments immer 'this' in Constructoren zu 'getActivity()' ändern!!
             actvLand.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, item));
+
 
             bt_ok = (Button) getView().findViewById(R.id.bt_ok);
             bt_Abbrechen = (Button) getView().findViewById(R.id.bt_cancel);
@@ -276,6 +317,7 @@ public class MainActivity extends Activity {
             });
         }
 
+            */
     }
 
 }
