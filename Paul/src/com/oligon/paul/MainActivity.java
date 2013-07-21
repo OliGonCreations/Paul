@@ -243,7 +243,8 @@ public class MainActivity extends Activity {
             etSpruch = (EditText) getView().findViewById(R.id.etSpruch);
             actvLand = (AutoCompleteTextView) getView().findViewById(R.id.actwLand);
             actvLand.setThreshold(1);
-            actvLand.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, item));
+            //Bei Fragments immer 'this' in Constructoren zu 'getActivity()' ändern!!
+            actvLand.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, item));
 
             bt_ok = (Button) getView().findViewById(R.id.bt_ok);
             bt_Abbrechen = (Button) getView().findViewById(R.id.bt_cancel);
