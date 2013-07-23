@@ -133,6 +133,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
+
                 DialogAdd add = new DialogAdd();
                 add.show(getFragmentManager(), "add");
                 break;
@@ -214,11 +215,8 @@ public class MainActivity extends Activity {
 
     public static class DialogAdd extends DialogFragment {
 
-        String item[] = {
-                "January", "February", "March", "April",
-                "May", "June", "July", "August",
-                "September", "October", "November", "December"
-        };
+
+
         AutoCompleteTextView actvLand;
         EditText etSpruch;
         //Button bt_ok, bt_Abbrechen;
@@ -227,6 +225,7 @@ public class MainActivity extends Activity {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Custom Dialog-Layout
+
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View view = inflater.inflate(R.layout.dialog_add, null);
 
@@ -245,6 +244,8 @@ public class MainActivity extends Activity {
                             if (etSpruch.getText().toString().equals("") || actvLand.getText().toString().equals("")) {
                                 Toast.makeText(getActivity(), "Leerer Spruch!",
                                         Toast.LENGTH_SHORT).show();
+
+
                             } else {
                                 db.addSpruch(new Spruch(etSpruch.getText().toString(),
                                         actvLand.getText().toString()));
@@ -269,55 +270,7 @@ public class MainActivity extends Activity {
         }
 
 
-        // Wird nicht mehr benötigt!
-            /*
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
 
-            //erstellen eines Adapters für das Autocomplete
-
-            autoCompArray = loadAutoCompArray();
-
-
-            etSpruch = (EditText) getView().findViewById(R.id.etSpruch);
-            actvLand = (AutoCompleteTextView) getView().findViewById(R.id.actwLand);
-            actvLand.setThreshold(1);
-            //Bei Fragments immer 'this' in Constructoren zu 'getActivity()' ändern!!
-            actvLand.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, item));
-
-
-            bt_ok = (Button) getView().findViewById(R.id.bt_ok);
-            bt_Abbrechen = (Button) getView().findViewById(R.id.bt_cancel);
-            bt_ok.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Log.d("Database", "creating Database");
-                    if (etSpruch.getText().toString().equals("") || actvLand.getText().toString().equals("")) {
-                        getDialog().dismiss();
-                        Toast.makeText(getActivity(), "Leerer Spruch!",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        db.addSpruch(new Spruch(etSpruch.getText().toString(),
-                                actvLand.getText().toString()));
-                        Toast.makeText(getActivity(), "Spruch gespeichert",
-                                Toast.LENGTH_SHORT).show();
-
-                        getDialog().dismiss();
-                    }
-                }
-            });
-            bt_Abbrechen.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-            */
     }
 
 }

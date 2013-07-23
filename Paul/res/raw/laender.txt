@@ -4,7 +4,7 @@ Australisch
 Albanisch
 Arabisch
 Armenisch
-Baluchi (Iran)
+Persisch
 Baskisch
 Bretonisch
 Bulgarisch
@@ -20,17 +20,17 @@ Griechisch
 Grönländisch
 Hawaianisch
 Hebräisch
-Hindi (Indien)
+Hindis
 Holländisch
 Holländisch
 Indonesisch
-Gälisch (Irland, Schottland)
+Gälisch
 Isländisch
 Italienisch
 Japanisch
 Jiddisch
 Katalanisch
-Lettisch:
+Lettisch
 Libanesisch
 Littauisch
 Maltesisch
@@ -46,7 +46,7 @@ Schwedisch
 Serbokroatisch
 Somalisch
 Spanisch
-Tagalog (Philippinen)
+Tagalog
 Thailändisch
 Tschechisch
 Türkisch
